@@ -1,6 +1,7 @@
 ## 分支开发
 
 阅读前假设用户配置了
+
 ```
 ➜  test git:(feature-test-project) cat ~/.gitconfig
 [alias]
@@ -11,7 +12,15 @@
         df = diff
 ```
 
-### **多人多分支同步开发**
+---
+
+
+- 多人多分支同步开发
+- 多个独立分支代码依赖解决
+- cherry-pick使用
+- rebase解决冲突
+
+### **==多人多分支同步开发==**
 
 假设线上有一个master分支，一个develop分支,两个分支一般都不直接拿来当作开发分支。
 现在用户a,b需要协作开发一个独立功能，用户a分支管理者，用户b分支协同开发者：
@@ -91,7 +100,8 @@ From github.com:loojk2008/test
 
 ```
 
-#### 代码rebase(衍合)
+代码rebase(衍合)
+
 a用户需要在合并到develop分支前进行rebase操作
 
 ```
@@ -109,7 +119,7 @@ Applying: 增加衍合操作
 ```
 这里实验性的衍合代码并没有发生冲突，实际使用中代码冲突需要在分支管理者自己解决。
 完成衍合之后，develop分支里最新的代码就合并到a用户本地feature-test-project分支，下一步就可以进行合并请求操作了。
-我们需要做的就是
+我们需要做的就是,把本地衍合完的代码更新到远程对应分支。
 
 ```
 ➜  test git:(feature-test-project) git push origin feature-test-project  -f
@@ -124,7 +134,7 @@ To github.com:loojk2008/test.git
 
 ```
 
-note: -f 参数代码强制更新，注意两点
+**note**: -f 参数代码强制更新，注意两点
 
 1：-f参数不是必须的，但是当衍合操作发生合并，冲突时，feature-test-project 和远程/origin/feature-test-project会发生偏离
 不加-f参数，本地衍合后的代码是不能推送到远程对应的远程分支。
@@ -137,6 +147,8 @@ note: -f 参数代码强制更新，注意两点
 #### 代码merge(合并)
 如果遵循上面步骤操作，这一步就简单了，直接merge到develop分支就可以了，不会有冲突了。
 
+
+---
 
 ### **多个独立分支代码依赖解决**
 
@@ -152,6 +164,8 @@ git pull --rebase origin/feature-b
 feature-a 就包含了 feature-b 代码，两个分支可以继续保持独立开发，或者进行合并。
 
 
+
+---
 
 ### **cherry-pick使用**
 一般应用场景：
@@ -223,7 +237,9 @@ Date:   Wed Mar 23 15:58:52 2016 +0800
 
 ```
 
- ### **rebase解决冲突**
+---
+
+### **rebase解决冲突**
  
  在feature-a分支里修改b.txt文件并提交
  
