@@ -246,7 +246,7 @@ Date:   Wed Mar 23 15:58:52 2016 +0800
  
  ```
  ➜  test git:(feature-a) vim b.txt 
- ➜  test git:(feature-a) ✗ git commit -am 'b add '
+ ➜  test git:(feature-a) ✗ git commit -m 'b add '
  ```
  
  到feature-b分支里修改相同文件b.txt
@@ -254,7 +254,7 @@ Date:   Wed Mar 23 15:58:52 2016 +0800
  ➜  test git:(feature-a) git co feature-b
  Switched to branch 'feature-b'
  ➜  test git:(feature-b) vim b.txt 
- ➜  test git:(feature-b) ✗ git commit -am 'b commit at feature-b'
+ ➜  test git:(feature-b) ✗ git commit -m 'b commit at feature-b'
  [feature-b 3c1dbf0] b commit at feature-b
   1 file changed, 2 insertions(+)
 
