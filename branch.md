@@ -307,11 +307,33 @@ Unmerged paths:
 (END)
 
 ```
+phpstorm相同的操作使用
 
-image
+[![](https://raw.githubusercontent.com/loojk2008/test/feature-test-project/images/426DE665-BACE-464F-A6FE-39518973E71B.png )]()
 
-WEB3b54599c0e1d2c797846441cfb901da5
 
-[![](https://user-gold-cdn.xitu.io/2016/11/29/767470407d869204b73b1a9e08aa88cf.jpg)](http://www.diycode.cc/wiki/encouragement)
 
-看到b.txt文件编辑修改解决冲突，commit
+
+使用文本编就解决b.txt
+
+```
+➜  test git:(60c040b) ✗ git add b.txt
+➜  test git:(60c040b) ✗ git st
+rebase in progress; onto 60c040b
+You are currently rebasing branch 'feature-b' on '60c040b'.
+  (all conflicts fixed: run "git rebase --continue")
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+    modified:   b.txt
+```
+
+看到提示，我们可以只add ,不commit,日志里会使用原来提交的commit信息，衍合会推进到下一个合并冲突点，如果没有会一直推进下去直到完成合并。
+
+```
+➜  test git:(60c040b) ✗ git rebase --continue 
+Applying: b commit at feature-b
+➜  test git:(feature-b) 
+
+```
