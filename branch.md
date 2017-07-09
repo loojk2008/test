@@ -66,5 +66,23 @@ Switched to a new branch 'feature-test-project'
 
 #### 3：分支请求合并
 
+情景假设：a,b完成了分支功能开发
+
+a用户更新缓冲区发现，已经有人先一步合并了一个分支到develop分支
+```
+➜  test git:(develop) git fetch --all
+Fetching origin
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 6 (delta 1), reused 4 (delta 1), pack-reused 0
+Unpacking objects: 100% (6/6), done.
+From github.com:loojk2008/test
+   e656bb0..288a8c3  develop    -> origin/develop
+
+```
+
 #### 代码rebase(衍合)
-假设在a,b用户开发阶段，有c用户
+a用户需要在合并到develop分支前进行rebase操作
+```
+
+```
