@@ -83,6 +83,22 @@ From github.com:loojk2008/test
 
 #### 代码rebase(衍合)
 a用户需要在合并到develop分支前进行rebase操作
+
+```
+➜  test git:(feature-test-project) git fetch --all
+Fetching origin
+➜  test git:(feature-test-project) git pull --rebase origin develop  
+From github.com:loojk2008/test
+ * branch            develop    -> FETCH_HEAD
+First, rewinding head to replay your work on top of it...
+Applying: 分支开发
+Applying: 协同开发分支建立
+Applying: c user
+Applying: 增加衍合操作
+
+```
+这里实验的衍合代码没用冲突，实际使用中代码冲突需要在分支管理者自己解决。
+
 ```
 
 ```
