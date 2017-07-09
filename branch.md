@@ -126,7 +126,7 @@ To github.com:loojk2008/test.git
 
 note: -f 参数代码强制更新，注意两点
 
-1：-f参数不是必须的，但是当衍合操作发生合并，冲突时，feature-test-project 和远程／origin／feature-test-project会发生偏离
+1：-f参数不是必须的，但是当衍合操作发生合并，冲突时，feature-test-project 和远程/origin/feature-test-project会发生偏离
 不加-f参数，本地衍合后的代码是不能推送到远程对应的远程分支。
 
 2：a进行衍合操作后，更新了远程origin／feature-test-project，b用户不应该再提交代码到feature-test-project分支。
@@ -223,4 +223,95 @@ Date:   Wed Mar 23 15:58:52 2016 +0800
 
 ```
 
+ ### **rebase解决冲突**
  
+ 在feature-a分支里修改b.txt文件并提交
+ 
+ ```
+ ➜  test git:(feature-a) vim b.txt 
+ ➜  test git:(feature-a) ✗ git commit -am 'b add '
+ ```
+ 
+ 到feature-b分支里修改相同文件b.txt
+ ```
+ ➜  test git:(feature-a) git co feature-b
+ Switched to branch 'feature-b'
+ ➜  test git:(feature-b) vim b.txt 
+ ➜  test git:(feature-b) ✗ git commit -am 'b commit at feature-b'
+ [feature-b 3c1dbf0] b commit at feature-b
+  1 file changed, 2 insertions(+)
+
+ ```
+ 
+ 分支进行衍合操作
+ 
+ ```
+ ➜  test git:(feature-b) git rebase feature-a
+ First, rewinding head to replay your work on top of it...
+ Applying: b commit at feature-b
+ Using index info to reconstruct a base tree...
+ M	b.txt
+ Falling back to patching base and 3-way merge...
+ Auto-merging b.txt
+ CONFLICT (content): Merge conflict in b.txt
+ error: Failed to merge in the changes.
+ Patch failed at 0001 b commit at feature-b
+ The copy of the patch that failed is found in: .git/rebase-apply/patch
+ 
+ When you have resolved this problem, run "git rebase --continue".
+ If you prefer to skip this patch, run "git rebase --skip" instead.
+ To check out the original branch and stop rebasing, run "git rebase --abort".
+ 
+ ```
+ 
+ 提示信息：
+ 
+ 可以看到代码合并的时候产生了冲突，需要先解决冲突才能进行下一步合并。
+ 
+  When you have resolved this problem, run "git rebase --continue".
+  
+  如果你解决了本次冲突可以操作 git rebase --continue 进行下一次提交的合并。
+  
+  If you prefer to skip this patch, run "git rebase --skip" instead.
+  
+  有时候碰到解决完冲突，git rebase --continue都不能到下一步合并，可使用git rebase --skip跳到下一步
+  
+  To check out the original branch and stop rebasing, run "git rebase --abort".
+  
+  取消当前所有的rebase 操作，使用git rebase --abort 退回
+  
+命令行可以使用如下查看冲突文件
+  
+```
+➜  test git:(60c040b) ✗ git st
+rebase in progress; onto 60c040b
+You are currently rebasing branch 'feature-b' on '60c040b'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Unmerged paths:
+  (use "git reset HEAD <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+
+    both modified:   b.txt
+    
+➜  test git:(60c040b) ✗ git blame b.txt
+
+60c040bc (loojk             2017-07-09 13:59:22 +0800 1) 
+00000000 (Not Committed Yet 2017-07-09 14:51:13 +0800 2) <<<<<<< HEAD
+60c040bc (loojk             2017-07-09 13:59:22 +0800 3) fdfdf
+00000000 (Not Committed Yet 2017-07-09 14:51:13 +0800 4) =======
+00000000 (Not Committed Yet 2017-07-09 14:51:13 +0800 5) fgfgfgfg fdg fd lll
+00000000 (Not Committed Yet 2017-07-09 14:51:13 +0800 6) >>>>>>> b commit at feature-b
+(END)
+
+```
+
+image
+
+WEB3b54599c0e1d2c797846441cfb901da5
+
+[![](https://user-gold-cdn.xitu.io/2016/11/29/767470407d869204b73b1a9e08aa88cf.jpg)](http://www.diycode.cc/wiki/encouragement)
+
+看到b.txt文件编辑修改解决冲突，commit
